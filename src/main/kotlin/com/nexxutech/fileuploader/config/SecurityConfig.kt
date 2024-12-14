@@ -24,9 +24,9 @@ class SecurityConfig {
         http
             .cors { it.disable() }
             .csrf { it.disable() }
-//            .authorizeRequests {
-//                it.anyRequest().permitAll()  // Allow all API requests without authentication
-//            }
+            .authorizeRequests {
+                it.anyRequest().permitAll()  // Allow all API requests without authentication
+            }
         return http
     }
 
