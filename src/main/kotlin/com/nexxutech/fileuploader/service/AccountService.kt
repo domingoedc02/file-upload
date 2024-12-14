@@ -20,7 +20,7 @@ class AccountService(
             accountRepository.save(newAccount)
             return ResponseEntity.status(200).body(mapOf("OK" to "Created Successfully"))
         } catch (e: Exception){
-            return ResponseEntity.status(500).body(mapOf("Internal Error" to e.message.toString()))
+            return ResponseEntity.status(500).body(mapOf("error" to e.message.toString()))
         }
     }
 
