@@ -2,9 +2,9 @@ spring:
   application.name: file-uploader
 
   datasource:
-    url: jdbc:postgresql://209.46.124.224:5432/fileupload_fb
+    url: jdbc:postgresql://209.46.126.200:5432/fileupload_fb
     username: nextech
-    password: 9^tpg76M8
+    password: 52Qc@cj31
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 10
@@ -12,7 +12,7 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     show-sql: true
 
 server:
