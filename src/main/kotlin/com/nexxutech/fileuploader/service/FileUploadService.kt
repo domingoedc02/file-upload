@@ -47,7 +47,7 @@ class FileUploadService(
 
     fun getFile(accountId: String, fileName: String, request: HttpServletRequest): ResponseEntity<Any>{
         // Validate the request origin
-        val allowedDomain = "https://localhost:3000"
+        val allowedDomain = "https://gotyme.com"
         val referer = request.getHeader("Referer")
         val origin = request.getHeader("Origin")
 
