@@ -12,7 +12,7 @@ spring:
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     show-sql: true
 
   servlet:
@@ -27,5 +27,6 @@ server:
 file:
   upload-dir: /var/www/uploads
   baseUrl: https://file-upload.server.gopesowise.com/uploads/
+  secretKey: kNNfat9jtmshC8QH3qmJHh6/nL1sxP30SrKxUs0Z/6g=
 
 

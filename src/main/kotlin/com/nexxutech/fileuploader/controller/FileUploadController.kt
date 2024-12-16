@@ -1,6 +1,7 @@
 package com.nexxutech.fileuploader.controller
 
 import com.nexxutech.fileuploader.service.FileUploadService
+import jakarta.servlet.http.HttpServletRequest
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
@@ -24,8 +25,9 @@ class FileUploadController(
     @GetMapping("/uploads/{fileName}")
     fun getFile(
         @PathVariable("fileName") fileName: String,
-        @RequestParam("id") id: String
+        @RequestParam("id") id: String,
+        request: HttpServletRequest
     ): ResponseEntity<Any>{
-        return fileUploadService.getFile(id, fileName)
+        return fileUploadService.getFile(id, fileName, request)
     }
 }

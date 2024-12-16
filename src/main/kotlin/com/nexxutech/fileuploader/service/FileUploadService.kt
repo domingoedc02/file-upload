@@ -47,17 +47,12 @@ class FileUploadService(
 
     fun getFile(accountId: String, fileName: String, request: HttpServletRequest): ResponseEntity<Any>{
         // Validate the request origin
-        val allowedDomain = "https://gotyme.com"
-        val referer = request.getHeader("Referer")
-        val origin = request.getHeader("Origin")
-
-        if (referer != null && !referer.startsWith(allowedDomain) ||
-            origin != null && !origin.startsWith(allowedDomain)) {
-            return ResponseEntity.status(403).body("Access Denied: Invalid Domain")
-        }
+        val token = request.getHeader("X-API-TOKEN") ?: return ResponseEntity.status(401).body("Unauthorized")
 
         val account = accountRepository.findByAccountId(accountId)
-        if (account.isEmpty) return ResponseEntity.status(404).body("Access Denied")
+        if (account.isEmpty) return ResponseEntity.status(403).body("Access Denied")
+        if (token != account.get().token) ResponseEntity.status(403).body("Access Denied")
+
         // Check if the file exists
         val filePath = Paths.get("/var/www/uploads/$fileName")
         if (!Files.exists(filePath)) {

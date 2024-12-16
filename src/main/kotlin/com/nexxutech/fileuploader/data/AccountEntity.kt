@@ -18,7 +18,13 @@ data class AccountEntity (
     var name: String = "", // default value for name
 
     @Column(nullable = false)
+    var token: String = "",
+
+    @Column(nullable = false)
     val isApproved: Boolean = true,
+
+    @Column(nullable = false)
+    val isActive: Boolean = true,
 
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
