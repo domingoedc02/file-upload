@@ -26,6 +26,6 @@ server:
 
 file:
   upload-dir: /var/www/uploads
-  baseUrl: http://209.46.126.200:8082/uploads/
+  baseUrl: https://file-upload.server.gopesowise.com/uploads/
 
 
