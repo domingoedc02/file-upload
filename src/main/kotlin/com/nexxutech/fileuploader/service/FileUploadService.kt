@@ -1,6 +1,7 @@
 package com.nexxutech.fileuploader.service
 
 import com.nexxutech.fileuploader.data.AccountRepository
+import jakarta.servlet.http.HttpServletRequest
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
@@ -44,7 +45,17 @@ class FileUploadService(
         }
     }
 
-    fun getFile(accountId: String, fileName: String): ResponseEntity<Any>{
+    fun getFile(accountId: String, fileName: String, request: HttpServletRequest): ResponseEntity<Any>{
+        // Validate the request origin
+        val allowedDomain = "https://localhost:3000"
+        val referer = request.getHeader("Referer")
+        val origin = request.getHeader("Origin")
+
+        if (referer != null && !referer.startsWith(allowedDomain) ||
+            origin != null && !origin.startsWith(allowedDomain)) {
+            return ResponseEntity.status(403).body("Access Denied: Invalid Domain")
+        }
+
         val account = accountRepository.findByAccountId(accountId)
         if (account.isEmpty) return ResponseEntity.status(404).body("Access Denied")
         // Check if the file exists
