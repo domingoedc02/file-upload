@@ -30,7 +30,7 @@ class FileUploadService(
             }
 
             // Generate a new filename (you can use a UUID or timestamp)
-            val newFileName = accountId + "_" + getCurrentTimestamp() + "_" + file.originalFilename
+            val newFileName = UUID.randomUUID().toString() + "_" + getCurrentTimestamp() + "_" + file.originalFilename
 
             // Resolve the new filename into the target location
             val targetLocation = uploadPath.resolve(newFileName)
@@ -43,6 +43,23 @@ class FileUploadService(
             return ResponseEntity.status(400).body(mapOf("Bad Request" to "You don't have permission to upload"))
         }
     }
+
+    fun getFile(accountId: String, fileName: String): ResponseEntity<Any>{
+        val account = accountRepository.findByAccountId(accountId)
+        if (account.isEmpty) return ResponseEntity.status(404).body("Access Denied")
+        // Check if the file exists
+        val filePath = Paths.get("/var/www/uploads/$fileName")
+        if (!Files.exists(filePath)) {
+            return ResponseEntity.status(404).body("File Not Found")
+        }
+
+        // Return the file as a response
+        val fileContent = Files.readAllBytes(filePath)
+        return ResponseEntity.ok()
+            .header("Content-Type", Files.probeContentType(filePath))
+            .body(fileContent)
+    }
+
 
     private fun getCurrentTimestamp(): String {
         val now = LocalDateTime.now()
