@@ -4,7 +4,7 @@ spring:
   datasource:
     url: jdbc:postgresql://209.46.126.200:5432/fileupload_db
     username: nextech
-    password: 44Dhu9$j5
+    password: Xl13*vw23
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 10
